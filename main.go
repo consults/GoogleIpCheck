@@ -47,12 +47,16 @@ func writeHosts(ip string) {
 	}
 
 	lines := strings.Split(string(content), "\n")
-	changeIP := ip + " translate.googleapis.com"
-
+	changeIP := ip + " translate.googleapis.com\n"
+	existIp := false
 	for index, line := range lines {
 		if strings.Contains(line, "translate.googleapis.com") {
 			lines[index] = changeIP
+			existIp = true
 		}
+	}
+	if existIp == false {
+		lines = append(lines, changeIP)
 	}
 
 	output := strings.Join(lines, "\n")
